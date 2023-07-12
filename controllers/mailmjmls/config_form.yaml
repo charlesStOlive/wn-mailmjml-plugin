@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: 'waka.mailmjml::lang.models.mailmjml.label'
+
+# Model Form Field configuration
+form: $/waka/mailmjml/models/mailmjml/fields.yaml
+
+# Model Class name
+modelClass: Waka\MailMjml\Models\MailMjml
+
+# Default redirect location
+defaultRedirect: waka/mailmjml/mailmjmls
+
+# Create page
+create:
+    title: backend::lang.form.create_title
+    redirect: waka/mailmjml/mailmjmls/update/:id
+    redirectClose: waka/mailmjml/mailmjmls
+
+# Update page
+update:
+    title: backend::lang.form.update_title
+    redirect: waka/mailmjml/mailmjmls
+    redirectClose: waka/mailmjml/mailmjmls
+
+# Preview page
+preview:
+    title: backend::lang.form.preview_title

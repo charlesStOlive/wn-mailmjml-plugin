@@ -1,0 +1,141 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    subject:
+        label: waka.mailmjml::lang.models.mailmjml.subject
+        span: left
+        required: true
+        permissions: [waka.mailer.*]
+    slug:
+        label: waka.mailmjml::lang.models.mailmjml.slug
+        span: right
+        comment: waka.mailmjml::lang.models.mailmjml.slug_com
+tabs:
+    defaultTab: waka.mailmjml::lang.models.tab_edit
+    icons: 
+        waka.mailmjml::lang.models.mailmjml.tab_info: icon-info-circle
+        waka.mailmjml::lang.models.mailmjml.tab_edit: icon-pencil
+        waka.mailmjml::lang.models.mailmjml.tab_options: icon-cog
+        waka.mailmjml::lang.models.mailmjml.tab_contents: icon-pencil
+        waka.mailmjml::lang.models.mailmjml.tab_session: icon-file
+    fields: 
+        mjml:
+            label: waka.mailmjml::lang.models.mailmjml.mjml
+            span: full
+            type: codeeditor
+            language: xml
+            size: giant
+            permissions: [waka.mailer.admin.super]
+            tab: waka.mailmjml::lang.models.mailmjml.tab_edit
+        rule_asks:
+            label: waka.mailmjml::lang.models.mailmjml.rule_asks
+            span: full
+            type: rulebuilder
+            targetProductor: mailMjml
+            ruleMode: ask
+            showAttributes: true
+            permissions: [waka.rules.asks.*]
+            tab: waka.mailmjml::lang.models.mailmjml.tab_edit
+        rule_blocs:
+                label: waka.mailmjml::lang.models.mailmjml.rule_blocs
+                span: full
+                type: rulebuilder
+                targetProductor: mailMjml
+                ruleMode: bloc
+                comment: waka.mailmjml::lang.models.mailmjml.rule_blocs_com
+                permissions: [waka.mailer.admin.super]
+                tab: waka.mailmjml::lang.models.mailmjml.tab_contents
+        config:
+            type: nestedform
+            usePanelStyles: false
+            tab: waka.mailmjml::lang.models.mailmjml.tab_options
+            form:
+                fields: 
+                    is_embed:
+                        label: waka.mailmjml::lang.models.mailmjml.is_embed
+                        span: right
+                        type: switch
+                        default: false
+                        comment: waka.mailmjml::lang.models.mailmjml.is_embed_com
+                        permissions: [waka.mailmjml.user.admin]
+                    has_log:
+                        label: waka.mailmjml::lang.models.mailmjml.has_log
+                        span: left
+                        type: switch
+                        default: true
+                        comment: waka.mailmjml::lang.models.mailmjml.has_log_com
+                        permissions: [waka.mailmjml.user.admin]
+                    open_log:
+                        label: waka.mailmjml::lang.models.mailmjml.open_log
+                        span: left
+                        type: switch
+                        trigger:
+                            action: show
+                            field: has_log
+                            condition: checked
+                        default: false
+                        permissions: [waka.mailmjml.user.admin]
+                    click_log:
+                        label: waka.mailmjml::lang.models.mailmjml.click_log
+                        span: right
+                        type: switch
+                        trigger:
+                            action: show
+                            field: has_log
+                            condition: checked
+                        default: false
+                        permissions: [waka.mailmjml.user.admin]
+                    has_sender:
+                        label: waka.mailmjml::lang.models.mailmjml.has_sender
+                        span: left
+                        type: switch
+                        default: false
+                        comment: waka.mailmjml::lang.models.mailmjml.has_sender_com
+                        permissions: [waka.mailmjml.user.admin]
+                    sender:
+                        label: waka.mailmjml::lang.models.mailmjml.sender
+                        span: right
+                        trigger:
+                            action: show
+                            field: has_sender
+                            condition: checked
+                        permissions: [waka.mailmjml.user.admin]
+                    has_reply_to:
+                        label: waka.mailmjml::lang.models.mailmjml.has_reply_to
+                        span: left
+                        type: switch
+                        default: false
+                        comment: waka.mailmjml::lang.models.mailmjml.has_reply_to_com
+                        permissions: [waka.mailmjml.user.admin]
+                    reply_to:
+                        label: waka.mailmjml::lang.models.mailmjml.reply_to
+                        span: right
+                        trigger:
+                            action: show
+                            field: has_reply_to
+                            condition: checked
+                        permissions: [waka.mailmjml.user.admin]
+                    has_cci: 
+                        label: waka.mailmjml::lang.models.mailmjml.has_cciss
+                        span: left
+                        type: switch
+                        default: false
+                        permissions: [waka.mailmjml.user.admin]
+                        comment: waka.mailmjml::lang.models.mailmjml.cci_com
+                    cci:
+                        label: waka.mailmjml::lang.models.mailmjml.cci
+                        span: right
+                        trigger:
+                            action: show
+                            field: has_cci
+                            condition: checked
+                        permissions: [waka.mailmjml.user.admin]
+        # mail_logs:
+        #     label: waka.mailmjml::lang.models.mail_logs
+        #     span: full
+        #     type: partial
+        #     path: field_mail_logs
+        #     permissions: [waka.mailer.admin.*]
+        #     tab: waka.mailmjml::lang.models.tab_logs

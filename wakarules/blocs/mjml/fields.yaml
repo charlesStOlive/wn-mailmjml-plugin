@@ -1,0 +1,12 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    mjml:
+        label: Code MJML
+        type: codeeditor
+        language: xml
+
+        
+      

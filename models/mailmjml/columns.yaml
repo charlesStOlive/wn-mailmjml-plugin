@@ -1,0 +1,25 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    id:
+        label: ID
+        searchable: true
+        invisible: true
+    name:
+        label: waka.mailmjml::lang.models.mailmjml.name
+        searchable: true
+    slug:
+        label: waka.mailmjml::lang.models.mailmjml.slug
+        clickable: false
+    updated_at:
+        label: waka.wutils::lang.global.updated_at
+        type: timetense
+    sort_order:
+        label: waka.wutils::lang.global.sort_order
+        invisible: true
