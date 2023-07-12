@@ -3,7 +3,8 @@
     "description": "Permet de créer des mails mjml dans l'univers winter.cms waka",
     "type": "winter-plugin",
     "require": {
-        "waka/wn-productor-plugin": "dev-test"
+        "waka/wn-productor-plugin": "dev-test",
+        "winter/wn-blocks-plugin": "dev-test"
     },
     "license": "MIT",
     "authors": [
