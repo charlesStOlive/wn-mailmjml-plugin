@@ -1,0 +1,1 @@
+# wn-mailmjml-plugin
