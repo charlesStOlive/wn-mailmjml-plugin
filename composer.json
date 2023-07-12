@@ -4,7 +4,7 @@
     "type": "winter-plugin",
     "require": {
         "waka/wn-productor-plugin": "dev-test",
-        "winter/wn-blocks-plugin": "dev-test"
+        "waka/wn-wakablocks-plugin": "dev-test"
     },
     "license": "MIT",
     "authors": [
