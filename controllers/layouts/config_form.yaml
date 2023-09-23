@@ -3,28 +3,28 @@
 # ===================================
 
 # Record name
-name: waka.mailmjml::lang.controllers.mailmjmls.label
+name: waka.mailmjml::lang.controllers.layouts.label
 
 # Model Form Field configuration
-form: $/waka/mailmjml/models/mailmjml/fields.yaml
+form: $/waka/mailmjml/models/layout/fields.yaml
 
 # Model Class name
-modelClass: Waka\MailMjml\Models\MailMjml
+modelClass: Waka\MailMjml\Models\Layout
 
 # Default redirect location
-defaultRedirect: waka/mailmjml/mailmjmls
+defaultRedirect: waka/mailmjml/layouts
 
 # Create page
 create:
     title: backend::lang.form.create_title
-    redirect: waka/mailmjml/mailmjmls/update/:id
-    redirectClose: waka/mailmjml/mailmjmls
+    redirect: waka/mailmjml/layouts/update/:id
+    redirectClose: waka/mailmjml/layouts
 
 # Update page
 update:
     title: backend::lang.form.update_title
-    redirect: waka/mailmjml/mailmjmls
-    redirectClose: waka/mailmjml/mailmjmls
+    redirect: waka/mailmjml/layouts
+    redirectClose: waka/mailmjml/layouts
 
 # Preview page
 preview:

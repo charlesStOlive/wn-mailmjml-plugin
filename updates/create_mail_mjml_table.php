@@ -13,6 +13,7 @@ class CreateMailMjmlTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug');
+            $table->integer('layout_id')->unsigned()->default(1);
             $table->string('subject');
             $table->text('mjml')->nullable();
             $table->mediumText('html')->nullable();

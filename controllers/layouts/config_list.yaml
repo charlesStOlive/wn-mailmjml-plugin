@@ -3,16 +3,16 @@
 # ===================================
 
 # Model List Column configuration
-list: $/waka/mailmjml/models/mailmjml/columns.yaml
+list: $/waka/mailmjml/models/layout/columns.yaml
 
 # Model Class name
-modelClass: Waka\MailMjml\Models\MailMjml
+modelClass: Waka\MailMjml\Models\Layout
 
 # List Title
-title: waka.mailmjml::lang.controllers.mailmjmls.label
+title: waka.mailmjml::lang.controllers.layouts.label
 
 # Link URL for each record
-recordUrl: waka/mailmjml/mailmjmls/update/:id
+recordUrl: waka/mailmjml/layouts/update/:id
 
 # Message to display if the list is empty
 noRecordsMessage: backend::lang.list.no_records

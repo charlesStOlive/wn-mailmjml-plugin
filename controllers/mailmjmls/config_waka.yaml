@@ -1,0 +1,39 @@
+# ===================================
+#  WakaController | Workflow | Productor |  Behavior Config
+# ===================================
+
+
+modelClass: Waka\MailMjml\Models\MailMjml
+backendUrl: waka/mailmjml/mailmjmls
+
+workflow: false 
+
+
+controllerConfig:
+    breadcrump:
+        inSettings: true 
+        title: waka.mailmjml::lang.models.mailmjml.label
+        rows: 
+            index: 
+                label: waka.mailmjml::lang.controllers.mailmjmls.label
+                url: waka/mailmjml/mailmjmls 
+    index:
+        base:
+            create: 
+                show: true
+                permissions: [waka.mailmjml.*]
+            reorder: 
+                show: false  
+                permissions: []
+            delete: 
+                show: true
+                permissions: [waka.mailmjml.*]
+        partials:
+            index_btn:
+                url: $/waka/mailmjml/controllers/mailmjmls/_index_btn.php
+    update:
+        # partials:
+        #     update_btn:
+        #         url: $/waka/mailmjml/controllers/mailmjmls/_update_btn.php
+
+

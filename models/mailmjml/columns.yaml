@@ -17,6 +17,7 @@ columns:
     slug:
         label: waka.mailmjml::lang.models.mailmjml.slug
         clickable: false
+        searchable: true
     updated_at:
         label: waka.wutils::lang.global.updated_at
         type: timetense

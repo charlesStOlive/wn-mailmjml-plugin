@@ -1,20 +1,34 @@
 <?php
 
 return [
-    'plugin' => [
-        'name' => 'Waka - MJML',
-        'description' => 'Plugin permettant d\'envoyer des emails en exploitant le MJML. il nécessite Waka.Productor pour fonctionner'
+    'driver' => [
+        'description' => 'Permet d\'envoyer des emails en source MJML',
+        'mjmler' => [
+            'label' => 'Mail MJML',
+        ],
     ],
-    'permissions' => [
-        'some_permission' => 'Some permission',
-        'user_base' => 'Administrateur MJML'
+    'mailmjml' => [
+        'controller' => [
+            'create' => 'Créer un mail MJML',
+            'index_label' => 'Mails MJML',
+            'title' => 'Gérer',
+        ],
+    ],
+    'menu' => [
+        'wakamails' => 'Mail MJML',
     ],
     'models' => [
         'mailmjml' => [
+            'cci' => 'CCI',
+            'cci_com' => 'Autoriser CCI',
             'click_log' => 'Log click',
             'create' => 'Créer un Email',
+            'has_cci' => 'Autoriser CCI',
+            'has_cciss' => 'CCI',
             'has_log' => 'Enregistrer les logs ?',
             'has_log_com' => 'Permets de faire des statistiques sur les emails envoyés',
+            'has_reply_to' => 'Personaliser adresse de réponse',
+            'has_reply_to_com' => 'Sinon l\'adresse par defaut sera utilisé',
             'has_sender' => 'Personnaliser l\'adresse d\' envoi',
             'has_sender_com' => 'sinon l\'adresse par défaut sera utilisée',
             'html' => 'Éditeur',
@@ -27,12 +41,15 @@ return [
             'job_send' => 'Mail envoyés',
             'job_skipped' => 'Mail abandonnées',
             'job_title' => 'Message(s) à envoyer',
+            'label' => 'Mail Mjml',
+            'label_plural' => 'Mail Mjmls',
             'mailLogs' => 'Logs emails',
             'mail_logs' => 'Logs des emails',
             'mail_success' => 'Mail envoyé avec succès',
+            'map_key' => 'DsMap key',
             'mjml' => 'Code MJML',
-            'name' => 'Nom de l\'email',
-            'name_com' => 'above::interne uniquement',
+            'name' => 'Intitulé de l\'email',
+            'name_com' => 'Usage intenre seulement',
             'open_log' => 'Log ouverture',
             'reply_to' => 'Adresse de réponse',
             'rule_asks' => 'Champs éditables',
@@ -41,6 +58,7 @@ return [
             'sender' => 'Adresse envoyeur',
             'slug' => 'Code ou Slug',
             'slug_com' => 'Seul un super admin peux maj. Attention le code est exploité par les controlleurs !',
+            'subject' => 'Sujet',
             'tab_attributs' => 'Attributs',
             'tab_blocs' => 'Blocs',
             'tab_contents' => 'Contenus aditionels',
@@ -49,31 +67,36 @@ return [
             'tab_infos' => 'Infos',
             'tab_logs' => 'Logs',
             'tab_options' => 'Options',
-            'cci' => 'CCI',
-            'has_cci' => 'Autoriser CCI',
-            'has_cciss' => 'CCI',
-            'cci_com' => 'Autoriser CCI',
-            'has_reply_to_com' => 'Sinon l\'adresse par defaut sera utilisé',
-            'has_reply_to' => 'Personaliser adresse de réponse',
-            'label' => 'Mail Mjml',
-            'label_plural' => 'Mail Mjmls',
-            'subject' => 'Sujet'
-        ]
-    ],
-    'driver' => [
-        'mjmler' => [
-            'label' => 'Mail MJML'
+            'layout' => 'Maquette',
         ],
-        'description' => 'Permet d\'envoyer des emails en source MJML'
+        'general' => [
+            'id' => 'ID',
+            'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
+        ],
+        'layout' => [
+            'slug' => 'Slug',
+            'name' => 'Nom du template',
+            'template' => 'Template',
+            'label' => 'Layout',
+            'label_plural' => 'Layouts',
+        ],
     ],
-    'menu' => [
-        'wakamails' => 'Mail MJML'
+    'permissions' => [
+        'some_permission' => 'Some permission',
+        'user_base' => 'Administrateur MJML',
     ],
-    'mailmjml' => [
-        'controller' => [
-            'create' => 'Créer un mail MJML',
-            'index_label' => 'Mails MJML',
-            'title' => 'Gérer'
-        ]
-    ]
+    'plugin' => [
+        'description' => 'Plugin permettant d\'envoyer des emails en exploitant le MJML. il nécessite Waka.Productor pour fonctionner',
+        'name' => 'Waka - MJML',
+    ],
+    'controllers' => [
+        'mailmjmls' => [
+            'layouts' => 'Modifier les layouts',
+            'label' => 'Mail Mjmls',
+        ],
+        'layouts' => [
+            'label' => 'Layouts',
+        ],
+    ],
 ];

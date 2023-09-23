@@ -4,9 +4,9 @@ use BackendMenu;
 use Backend\Classes\Controller;
 use System\Classes\SettingsManager; 
 /**
- * Mail Mjmls Backend Controller
+ * Layouts Backend Controller
  */
-class MailMjmls extends Controller
+class Layouts extends Controller
 {
     /**
      * @var array Behaviors that are implemented by this controller.
@@ -21,13 +21,9 @@ class MailMjmls extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('Winter.System', 'system', 'settings');
-        SettingsManager::setContext('Waka.MailMjml', 'mailMjmls');
+        SettingsManager::setContext('Waka.MailMjml', 'layouts');
     }
 
     
-    public function update($id)
-    {
-        $this->bodyClass = 'compact-container';
-        return $this->asExtension('FormController')->update($id);
-    }
+    
 }

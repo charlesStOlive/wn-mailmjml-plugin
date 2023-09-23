@@ -1,0 +1,10 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: waka.mailmjml::lang.models.layout.name
+        searchable: true
+    slug: 
+        label: waka.mailmjml::lang.models.layout.slug

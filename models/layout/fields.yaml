@@ -1,0 +1,19 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    name:
+        label: waka.mailmjml::lang.models.layout.name
+        searchable: true
+        span: left
+    slug: 
+        label: waka.mailmjml::lang.models.layout.slug
+        span: right
+        preset: name
+    template: 
+        label: waka.mailmjml::lang.models.layout.template
+        type: codeeditor
+        size: giant 
+        language: xml
+    
