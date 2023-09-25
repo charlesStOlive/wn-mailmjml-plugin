@@ -36,7 +36,7 @@ class MjmlCreator
      * @param Closure $callback
      * @return string
      */
-    public function __construct($template, $vars, $options = [])
+    public function __construct($template, $vars)
     {
         $this->mail = MailMjml::findBySlug($template);
         $this->sendMode = $options['send_mode'] ?? 'mailgun';

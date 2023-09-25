@@ -3,15 +3,13 @@
 namespace Waka\MailMjml\Classes;
 
 use Waka\Productor\Interfaces\BaseProductor;
-use Waka\Productor\Interfaces\Email;
-use Waka\Productor\Interfaces\Show;
 use Closure;
 use Lang;
 use Arr;
 use ApplicationException;
 use ValidationException;
 
-class Mjmler implements BaseProductor, Email, Show
+class Mjmler implements BaseProductor
 {
     use \Waka\Productor\Classes\Traits\TraitProductor;
 
@@ -47,6 +45,21 @@ class Mjmler implements BaseProductor, Email, Show
         return $formWidget;
     }
 
+    /**
+     * Instancieation de la class creator
+     *
+     * @param string $url
+     * @return \Spatie\Browsershot\Browsershot
+     */
+    private static function instanciateCreator(string $templateCode, array $vars)
+    {
+        $productorClass = self::getConfig()['productorCreator'];
+        $class = new $productorClass($templateCode, $vars);
+        return $class;
+    }
+
+
+
     public static function execute($templateCode, $productorHandler, $allDatas):array {
         $modelId = Arr::get($allDatas, 'modelId');
         $modelClass = Arr::get($allDatas, 'modelClass');
@@ -62,7 +75,7 @@ class Mjmler implements BaseProductor, Email, Show
             $dsClass = $targetModel->getMorphClass();
         }
         if($productorHandler == "sendEmail") {
-            $mailId = self::sendEmail($templateCode, $data, [], function($mail) use($allDatas, $dsId, $dsClass) {
+            $mailId = self::sendEmail($templateCode, $data, function($mail) use($allDatas, $dsId, $dsClass) {
                 $mail->setSubject(\Arr::get($allDatas, 'productorDataArray.subject'));
                 $mail->setTos(\Arr::get($allDatas, 'productorDataArray.tos'));
                 if($dsId && $dsClass) {
@@ -82,7 +95,7 @@ class Mjmler implements BaseProductor, Email, Show
                 ],
             ];
         } else if($productorHandler == "show") {
-            $data = self::show($templateCode, $data, []);
+            $data = self::show($templateCode, $data);
             return [
                 'message' => 'Mail à envoyer',
                 'partial' => [
@@ -93,10 +106,10 @@ class Mjmler implements BaseProductor, Email, Show
     }
 
 
-    public static function sendEmail(string $templateCode, array $vars, array $options, Closure $callback = null)
+    public static function sendEmail(string $templateCode, array $vars, Closure $callback = null)
     {
         // Créer l'instance de pdf
-        $creator = self::instanciateCreator($templateCode, $vars, $options);
+        $creator = self::instanciateCreator($templateCode, $vars);
         // Appeler le callback pour définir les options
         if (is_callable($callback)) {
             $callback($creator);
@@ -109,9 +122,9 @@ class Mjmler implements BaseProductor, Email, Show
         }
     }
 
-    public static function show(string $templateCode, array $vars, array $options, Closure $callback = null) {
+    public static function show(string $templateCode, array $vars, Closure $callback = null) {
 
-        $creator = self::instanciateCreator($templateCode, $vars, $options);
+        $creator = self::instanciateCreator($templateCode, $vars);
         // Appeler le callback pour définir les options
         if (is_callable($callback)) {
             $callback($creator);
