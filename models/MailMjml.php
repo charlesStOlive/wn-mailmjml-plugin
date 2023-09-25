@@ -98,6 +98,8 @@ class MailMjml extends Model
     public $attachOne = [];
     public $attachMany = [];
 
+    public $config;
+
 
     public function beforeSave()
     {
