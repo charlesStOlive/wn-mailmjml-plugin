@@ -23,7 +23,7 @@ create:
 # Update page
 update:
     title: backend::lang.form.update_title
-    redirect: waka/mailmjml/mailmjmls
+    redirect: waka/mailmjml/mailmjmls/update/:id
     redirectClose: waka/mailmjml/mailmjmls
 
 # Preview page
