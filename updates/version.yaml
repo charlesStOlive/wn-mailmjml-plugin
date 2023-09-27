@@ -2,3 +2,6 @@
     - 'First version of MailMjml'
     - create_mail_mjml_table.php
     - create_layouts_table.php
+1.0.1:
+    - 'Update mailmjmls Table'
+    - v1.0.1/update_mailmjmls_table.php

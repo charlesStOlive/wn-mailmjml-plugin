@@ -3,18 +3,6 @@
 # ===================================
 
 fields:
-    name: 
-        label: waka.mailmjml::lang.models.mailmjml.name
-        span: left
-        comment: waka.mailmjml::lang.models.mailmjml.name_com
-    slug:
-        label: waka.mailmjml::lang.models.mailmjml.slug
-        span: right
-        comment: waka.mailmjml::lang.models.mailmjml.slug_com
-    layout: 
-        label: waka.mailmjml::lang.models.mailmjml.layout
-        type: relation 
-        slect: name
     subject:
         label: waka.mailmjml::lang.models.mailmjml.subject
         span: left
@@ -25,9 +13,9 @@ tabs:
     icons: 
         waka.mailmjml::lang.models.mailmjml.tab_info: icon-info-circle
         waka.mailmjml::lang.models.mailmjml.tab_edit: icon-pencil
-        waka.mailmjml::lang.models.mailmjml.tab_options: icon-cog
-        waka.mailmjml::lang.models.mailmjml.tab_contents: icon-pencil
-        waka.mailmjml::lang.models.mailmjml.tab_session: icon-file
+        # waka.mailmjml::lang.models.mailmjml.tab_options: icon-cog
+        # waka.mailmjml::lang.models.mailmjml.tab_contents: icon-pencil
+        # waka.mailmjml::lang.models.mailmjml.tab_session: icon-file
     fields: 
         mjml:
             label: waka.mailmjml::lang.models.mailmjml.mjml
@@ -37,15 +25,16 @@ tabs:
             size: giant
             permissions: [waka.mailer.admin.super]
             tab: waka.mailmjml::lang.models.mailmjml.tab_edit
-        # rule_asks:
-        #     label: waka.mailmjml::lang.models.mailmjml.rule_asks
-        #     span: full
-        #     type: rulebuilder
-        #     targetProductor: mailMjml
-        #     ruleMode: ask
-        #     showAttributes: true
-        #     permissions: [waka.rules.asks.*]
-        #     tab: waka.mailmjml::lang.models.mailmjml.tab_edit
+        prod_asks: 
+            label: Mettre en place des données éditables lors de la géneration du modèle 
+            tab: waka.mailmjml::lang.models.mailmjml.tab_edit
+            commentAbove: Le modèle cible doit avoir le trait ds pour que cela fonctionne
+            type: blocks 
+            style: collapsed
+            allow: 
+            tags: 
+                - asks
+
         # rule_blocs:
         #         label: waka.mailmjml::lang.models.mailmjml.rule_blocs
         #         span: full
@@ -147,3 +136,21 @@ tabs:
         #     path: field_mail_logs
         #     permissions: [waka.mailer.admin.*]
         #     tab: waka.mailmjml::lang.models.tab_logs
+secondaryTabs:
+    fields:
+        name: 
+            label: waka.mailmjml::lang.models.mailmjml.name
+            span: full
+            comment: waka.mailmjml::lang.models.mailmjml.name_com
+        slug:
+            label: waka.mailmjml::lang.models.mailmjml.slug
+            span: full
+            comment: waka.mailmjml::lang.models.mailmjml.slug_com
+        layout: 
+            label: waka.mailmjml::lang.models.mailmjml.layout
+            type: relation 
+            slect: name
+    # infos:
+    #     span: full
+    #     type: modelinfo
+    #     dsMap: resumer

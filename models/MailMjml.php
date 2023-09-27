@@ -49,7 +49,8 @@ class MailMjml extends Model
      * @var array Attributes to be cast to JSON
      */
     protected $jsonable = [
-        'config'
+        'config',
+        'prod_asks'
     ];
 
     /**
@@ -157,6 +158,10 @@ class MailMjml extends Model
     {
         $mjml = \Arr::get($sections, 'mjml');
         $this->subject = \Arr::get($sections, 'settings.subject', 'sujet manquant');
+        $prod_asks = \Arr::get($sections, 'settings.prod_asks', '');
+        //trace_log($prod_asks);
+        $this->prod_asks = json_decode($prod_asks, true);
+        //trace_log($this->prod_asks);
         $this->config['open_log'] = \Arr::get($sections, 'settings.open_log', false);
         $this->config['click_log'] = \Arr::get($sections, 'settings.click_log', false);
         $this->config['sender'] = \Arr::get($sections, 'settings.sender', null);
@@ -171,7 +176,7 @@ class MailMjml extends Model
         if ($env == 'local' || $env == 'dev') {
             $mjmlLayout = $this->layout->template;
             $finalMjml = \Winter\Storm\Parse\Bracket::parse($mjmlLayout, ['MjmlContents' => $mjml]);
-            trace_log($finalMjml);
+            //trace_log($finalMjml);
            $this->html = $this->sendApi($finalMjml);
         } else {
             $this->html =   \Cache::rememberForever('mjml_to_htm.' . $this->slug, function () use ($mjml) {
@@ -196,24 +201,6 @@ class MailMjml extends Model
         $view = View::make($slug);
         return ModelFileParser::parse(FileHelper::get($view->getPath()));
     }
-
-    // public function getProductorAsks()
-    // {
-    //     if(!$this->rule_asks->count()) {
-    //         return [];
-    //     }
-    //     $asksList = [];
-    //     $asks = $this->rule_asks;
-    //     foreach ($asks as $ask) {
-    //         if($ask->isEditable()) {
-    //             $askCode = $ask->getCode();
-    //             $askField = $ask->getEditableField();
-    //             $asksList[$askCode] = $ask->getEditableConfig();
-    //             $asksList[$askCode]['default'] = $ask->getConfig($askField);
-    //         }
-    //     }
-    //     return $asksList;
-    // }
 
 
     public function sendApi($mjml)

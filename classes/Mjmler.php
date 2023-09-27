@@ -2,80 +2,49 @@
 
 namespace Waka\MailMjml\Classes;
 
-use Waka\Productor\Interfaces\BaseProductor;
+use \Waka\Productor\Classes\Abstracts\BaseProductor;
 use Closure;
 use Lang;
 use Arr;
 use ApplicationException;
 use ValidationException;
 
-class Mjmler implements BaseProductor
+class Mjmler extends BaseProductor 
 {
-    use \Waka\Productor\Classes\Traits\TraitProductor;
 
-    public static function getConfig()
-    {
-        return [
-            'label' => Lang::get('waka.mailmjml::lang.driver.mjmler.label'),
-            'icon' => 'icon-mjml',
-            'description' => Lang::get('waka.mailmjml::lang.driver.description'),
-            'productorModel' => \Waka\MailMjml\Models\MailMjml::class,
-            'productorCreator' => \Waka\MailMjml\Classes\MjmlCreator::class,
-            'productorFilesRegistration' =>  'registerMjmlTemplates',
-            'productor_yaml_config' => '~/plugins/waka/mailmjml/models/mailmjml/productor_config.yaml',
-            'methods' => [
-                'sendEmail' => [
-                    'label' => 'Envoyer email',
-                    'handler' => 'sendEmail',
-                ],
-                'show' => [
-                    'label' => 'Afficher HTML',
-                    'handler' => 'show',
-                ]
+    protected static $config = [
+        'label' => 'waka.mailmjml::lang.driver.mjmler.label',
+        'icon' => 'icon-mjml',
+        'description' => 'waka.mailmjml::lang.driver.description',
+        'productorModel' => \Waka\MailMjml\Models\MailMjml::class,
+        'productorCreator' => \Waka\MailMjml\Classes\MjmlCreator::class,
+        'productorFilesRegistration' =>  'registerMjmlTemplates',
+        'productor_yaml_config' => '~/plugins/waka/mailmjml/models/mailmjml/productor_config.yaml',
+        'methods' => [
+            'sendEmail' => [
+                'label' => 'Envoyer email',
+                'handler' => 'sendEmail',
             ],
-        ];
-    }
+            'show' => [
+                'label' => 'Afficher HTML',
+                'handler' => 'show',
+            ]
+        ],
+    ];
 
-    public static function updateFormwidget($slug, $formWidget)
-    {
-        $productorModel = self::getProductor($slug);
-        $formWidget->getField('subject')->value = $productorModel->subject;
-        //Je n'ais pas trouvé de solution pour charger les valeurs. donc je recupère les asks dans un primer temps avec une valeur par defaut qui ne marche pas et je le réajoute ensuite.... 
-        $formWidget = self::getAndSetAsks($productorModel, $formWidget);
-        return $formWidget;
-    }
-
-    /**
-     * Instancieation de la class creator
-     *
-     * @param string $url
-     * @return \Spatie\Browsershot\Browsershot
-     */
-    private static function instanciateCreator(string $templateCode, array $vars)
-    {
-        $productorClass = self::getConfig()['productorCreator'];
-        $class = new $productorClass($templateCode, $vars);
-        return $class;
-    }
-
-
-
-    public static function execute($templateCode, $productorHandler, $allDatas):array {
-        $modelId = Arr::get($allDatas, 'modelId');
-        $modelClass = Arr::get($allDatas, 'modelClass');
-        $dsMap = Arr::get($allDatas, 'dsMap', null);
+    public function execute($templateCode, $productorHandler, $allDatas):array {
+        $this->getBaseVars($allDatas);
         //
-        $targetModel = $modelClass::find($modelId);
-        $data = [];
         $dsId = null;
         $dsClass = null;
-        if ($targetModel) {
-            $data = $targetModel->dsMap($dsMap);
-            $dsId = $targetModel->id;
-            $dsClass = $targetModel->getMorphClass();
+        if($this->targetModel) {
+            $dsId = $this->targetModel->id;
+            $dsClass = $this->targetModel->getMorphClass();
         }
+        
+        //
         if($productorHandler == "sendEmail") {
-            $mailId = self::sendEmail($templateCode, $data, function($mail) use($allDatas, $dsId, $dsClass) {
+            $mailId = self::sendEmail($templateCode, $this->data, function($mail) use($allDatas, $dsId, $dsClass) {
                 $mail->setSubject(\Arr::get($allDatas, 'productorDataArray.subject'));
                 $mail->setTos(\Arr::get($allDatas, 'productorDataArray.tos'));
                 if($dsId && $dsClass) {
@@ -84,7 +53,6 @@ class Mjmler implements BaseProductor
                         'ds_id' => $dsId,
                     ]);
                 }
-                
             });
             return [
                 'message' => 'Mail envoyé avec succès',
@@ -95,7 +63,7 @@ class Mjmler implements BaseProductor
                 ],
             ];
         } else if($productorHandler == "show") {
-            $data = self::show($templateCode, $data);
+            $data = self::show($templateCode, $this->data);
             return [
                 'message' => 'Mail à envoyer',
                 'partial' => [
@@ -103,6 +71,24 @@ class Mjmler implements BaseProductor
                 ],
             ];
         }
+    }
+
+    /**
+     * Instancieation de la class creator
+     *
+     */
+    protected static function instanciateCreator(string $templateCode, array $vars)
+    {
+        $productorClass = self::getStaticConfig('productorCreator');
+        $class = new $productorClass($templateCode, $vars);
+        return $class;
+    }
+
+    public static function updateFormwidget($slug, $formWidget)
+    {
+        $productorModel = self::getProductor($slug);
+        $formWidget->getField('subject')->value = $productorModel->subject;
+        return $formWidget;
     }
 
 
