@@ -9,7 +9,7 @@ fields:
         required: true
         permissions: [waka.mailer.*]
     slug:
-        label:  waka.mailer::lang.models.mailmjml.code
+        label:  waka.mailmjml::lang.models.mailmjml.code
         span: right
     mjml:
         label: waka.mailmjml::lang.models.mjml

@@ -13,9 +13,6 @@ tabs:
     icons: 
         waka.mailmjml::lang.models.mailmjml.tab_info: icon-info-circle
         waka.mailmjml::lang.models.mailmjml.tab_edit: icon-pencil
-        # waka.mailmjml::lang.models.mailmjml.tab_options: icon-cog
-        # waka.mailmjml::lang.models.mailmjml.tab_contents: icon-pencil
-        # waka.mailmjml::lang.models.mailmjml.tab_session: icon-file
     fields: 
         mjml:
             label: waka.mailmjml::lang.models.mailmjml.mjml

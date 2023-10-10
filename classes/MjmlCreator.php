@@ -10,7 +10,7 @@ class MjmlCreator
     public $mail;
     public $vars;
     private $sendMode;
-    private $pjsPaths;
+    private $pjsDatas;
     private $html;
     private $subject;
     private $sender;
@@ -41,7 +41,7 @@ class MjmlCreator
         $this->mail = MailMjml::findBySlug($template);
         $this->sendMode = $options['send_mode'] ?? 'mailgun';
         $this->vars = $vars;
-        $this->pjsPaths = [];
+        $this->pjsDatas = [];
     }
 
 
@@ -68,13 +68,32 @@ class MjmlCreator
     {
         $this->sendMode = $sendMode;
     }
-    public function addPjs($paths = [])
+    public function addDsPjs($objects = [])
     {
-        $this->pjsPaths = $paths;
+        foreach($objects as $dsKey) {
+            $objectFromDs = $this->vars['ds'][$dsKey] ?? null;
+            if($objectFromDs) {
+                array_push($this->pjsDatas,$objectFromDs);
+            } else {
+                //trace_log($this->vars['ds']);
+                \Log::error('***addDsPjs**** : Impossible de créer la PJ depuis DS : '.$dsKey);
+            }
+            
+        }   
+        
+
     }
-    public function removePjs()
+
+    public function addPjs($objects = [])
     {
-        $this->pjsPaths = null;
+        $this->pjsDatas = array_merge($this->pjsDatas,$objects);
+
+    }
+
+
+    public function removeDsPjs()
+    {
+        $this->pjsDatas = null;
     }
     public function setSubject($subject)
     {
@@ -130,6 +149,8 @@ class MjmlCreator
             'click_log' => $this->click_log,
             'is_embed' => $this->is_embed,
         ]);
+
+        $this->createPjsInSendBoxs( $this->pjsDatas, $mailSendBox);
         try {
             $mailSendBox->send();
         } catch(\Exception $ex) {
@@ -137,21 +158,43 @@ class MjmlCreator
         }
         return $mailSendBox->id;
     }
+
+    private function createPjsInSendBoxs($pjs, $mailSendBox) {
+        if($pjs) {
+            //trace_log($pjs);
+            foreach($pjs as $pj) {
+                $filePath = $pj['path'] ?? null;
+                if(!$filePath) {
+                    \Log::error('Il manque le path de la PJ');
+                }
+                $fileName = $pj['label'] ?? 'inc';
+                $fileExtention = pathinfo($filePath)['extension'];
+                $file = new \System\Models\File;
+                $file->data = $filePath;
+                $file->title = $fileName.'.'.$fileExtention;
+                $file->is_public = false;
+                $mailSendBox->pjs()->add($file);
+
+            }
+        } 
+    }
+
     private function prepareModelData()
     {
-        $this->subject = $this->subject ?? $this->parseModelField($this->mail->subject, $this->vars);
-            $this->tos = $this->tos ?? $this->parseModelField($this->mail->config['tos'] ?? null, $this->vars);
-        $this->ccs = $this->ccs ?? $this->parseModelField($this->mail->config['ccs'] ?? null, $this->vars);
-        $this->ccis = $this->ccis ?? $this->parseModelField($this->mail->config['ccis'] ?? null, $this->vars);
-        $this->sender = $this->sender ?? $this->parseModelField($this->mail->config['sender'] ?? null, $this->vars);
-        $this->reply_to = $this->reply_to ?? $this->parseModelField($this->mail->config['reply_to'] ?? null, $this->vars);
+        $this->subject =  $this->parseModelField($this->subject ?? null, $this->mail->subject);
+        $this->tos = $this->parseModelField($this->tos ?? null,  $this->mail->config['tos'] ?? null);
+        $this->ccs =  $this->parseModelField($this->ccs ?? null, $this->mail->config['ccs'] ?? null);
+        $this->ccis =  $this->parseModelField($this->ccis ?? null,  $this->mail->config['ccis'] ?? null);
+        $this->sender =  $this->parseModelField($this->sender ?? null, $this->mail->config['sender'] ?? null);
+        $this->reply_to =  $this->parseModelField($this->reply_to ?? null,  $this->mail->config['reply_to'] ?? null);
         $this->open_log = $this->mail->config['open_log'] ?? null;
         $this->click_log = $this->mail->config['click_log'] ?? null;
         $this->is_embed = $this->mail->config['is_embed'] ?? null;
         $this->headers = $this->mergeHeaders();
         // $this->pjs = $this->preparePjs();
         //
-        $this->html = $this->parseModelField($this->mail->html, $this->vars);
+        //trace_log('ok-----------------------------------------');
+        $this->html = $this->parseModelField($this->mail->html);
     }
 
 
@@ -177,10 +220,18 @@ class MjmlCreator
         return  $instance->getMorphClass();
     }
 
-    private function parseModelField($modelValue, $value)
+    private function parseModelField($baseValue, $modelValue = null)
     {
-        if ($modelValue) {
-            return \Twig::parse($modelValue, $this->vars);
+        $valueToReturn = null;
+        if($baseValue) {
+            $valueToReturn = $baseValue;
+        } else {
+            $valueToReturn = $modelValue;
+        }
+        if ($valueToReturn && is_string($valueToReturn)) {
+            return \Twig::parse($valueToReturn, $this->vars);
+        } else if($valueToReturn) {
+            return $valueToReturn;
         } else {
             return null;
         }

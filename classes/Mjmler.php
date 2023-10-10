@@ -14,7 +14,7 @@ class Mjmler extends BaseProductor
 
     protected static $config = [
         'label' => 'waka.mailmjml::lang.driver.mjmler.label',
-        'icon' => 'icon-mjml',
+        'icon' => 'icon-paper-plane',
         'description' => 'waka.mailmjml::lang.driver.description',
         'productorModel' => \Waka\MailMjml\Models\MailMjml::class,
         'productorCreator' => \Waka\MailMjml\Classes\MjmlCreator::class,
@@ -41,10 +41,14 @@ class Mjmler extends BaseProductor
             $dsId = $this->targetModel->id;
             $dsClass = $this->targetModel->getMorphClass();
         }
+        if($aditionalConfig = $allDatas['addedConfig'] ?? false) {
+            $additionalConfig = json_decode($aditionalConfig, true);
+        }
+        $addDsPjs =  $additionalConfig['addDsPjs'] ?? null;
         
         //
         if($productorHandler == "sendEmail") {
-            $mailId = self::sendEmail($templateCode, $this->data, function($mail) use($allDatas, $dsId, $dsClass) {
+            $mailId = self::sendEmail($templateCode, $this->data, function($mail) use($allDatas, $dsId, $dsClass, $addDsPjs) {
                 $mail->setSubject(\Arr::get($allDatas, 'productorDataArray.subject'));
                 $mail->setTos(\Arr::get($allDatas, 'productorDataArray.tos'));
                 if($dsId && $dsClass) {
@@ -53,11 +57,15 @@ class Mjmler extends BaseProductor
                         'ds_id' => $dsId,
                     ]);
                 }
+                if($addDsPjs ) {
+                    $mail->addDsPjs($addDsPjs);
+                }
+
             });
             return [
-                'message' => 'Mail envoyé avec succès',
+                'message' => 'waka.mailmjml::lang.driver.mjmler.success.message_send',
                 'btn' => [
-                    'label' => 'Voir l\'email dans la boite d\'envoi',
+                    'label' => 'waka.mailmjml::lang.driver.mjmler.success.btn_message_send_label',
                     'request' => 'onGoToBo',
                     'link' => 'waka/maillog/sendboxs/update/'.$mailId
                 ],
@@ -65,7 +73,8 @@ class Mjmler extends BaseProductor
         } else if($productorHandler == "show") {
             $data = self::show($templateCode, $this->data);
             return [
-                'message' => 'Mail à envoyer',
+                'keep_btns' => true,
+                'keep_form' => true,
                 'partial' => [
                     'content' => $data,
                 ],
@@ -84,7 +93,7 @@ class Mjmler extends BaseProductor
         return $class;
     }
 
-    public static function updateFormwidget($slug, $formWidget)
+    public static function updateFormwidget($slug, $formWidget, $config = [])
     {
         $productorModel = self::getProductor($slug);
         $formWidget->getField('subject')->value = $productorModel->subject;
