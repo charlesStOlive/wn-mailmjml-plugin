@@ -17,7 +17,7 @@ class CreateMailMjmlTable extends Migration
             $table->string('subject');
             $table->text('mjml')->nullable();
             $table->mediumText('html')->nullable();
-            $table->json('config');
+            $table->json('config')->nullable();
             $table->integer('sort_order')->default(0);
             //softDelete
             $table->softDeletes();
