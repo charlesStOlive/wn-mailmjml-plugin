@@ -11,6 +11,9 @@ columns:
         label: ID
         searchable: true
         invisible: true
+    is_synced:
+        label: waka.mailmjml::lang.models.mailmjml.sync
+        type: switch
     name:
         label: waka.mailmjml::lang.models.mailmjml.name
         searchable: true

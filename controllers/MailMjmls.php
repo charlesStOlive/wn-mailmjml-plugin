@@ -24,6 +24,14 @@ class MailMjmls extends Controller
         SettingsManager::setContext('Waka.MailMjml', 'mailMjmls');
     }
 
+    public function listInjectRowClass($record, $definition)
+    {
+        // Strike through past lessons
+        if ($record->is_synced) {
+            return 'nolink  disabled';
+        }
+    }
+
     
     public function update($id)
     {

@@ -9,6 +9,9 @@ return [
             'label' => 'Mails MJML',
             'layouts' => 'Modifier les layouts',
         ],
+        'pdfs' => [
+            'layouts' => 'Modifier les layouts',
+        ],
     ],
     'driver' => [
         'description' => 'Permet d\'envoyer des emails en source MJML',
@@ -21,8 +24,10 @@ return [
         ],
     ],
     'menu' => [
-        'wakamails' => 'Mails MJML',
-        'wakamails_description' => 'Permet d\'envoyer des emails au format MJML',
+        'mailMjmls' => [
+            'label' => 'Mails MJML',
+            'description' => 'Des Emails au format MJML',
+        ],
     ],
     'models' => [
         'layout' => [
@@ -62,6 +67,7 @@ return [
             'tab_info' => 'Information',
             'tab_options' => 'Options',
             'code' => 'Code/Slug',
+            'sync' => 'Static',
         ],
         'tab_edit' => 'Édition',
         'mail_logs' => 'Logs mails',
@@ -75,5 +81,16 @@ return [
     'plugin' => [
         'description' => 'Plugin permettant d\'envoyer des emails en exploitant le MJML. Il nécessite Waka.Productor pour fonctionner',
         'name' => 'Waka - MJML',
+    ],
+    'jobs' => [
+        'mailmjml' => [
+            'send_emails' => 'Envoyer des mails MJML',
+            'error_scope' => 'Mail avec erreur sur le scope',
+            'send' => 'Mails envoyés',
+            'skipped' => 'Mails abandonnées',
+            'title' => 'Mails à envoyer',
+            'ids_error' => 'ID des mails avec erreurs',
+            'result' => "Resultats",
+        ],
     ],
 ];

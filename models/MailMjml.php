@@ -119,7 +119,7 @@ class MailMjml extends Model
             $model = self::findFileModels($slug);
         }
         if (!$model) {
-            throw new \ApplicationException('aucun modèl etrouvé avec le code : ' . $slug);
+            throw new \ApplicationException('aucun modèle trouvé avec le code : ' . $slug);
         }
         return $model;
     }
@@ -168,6 +168,8 @@ class MailMjml extends Model
         $this->config['reply_to'] = \Arr::get($sections, 'settings.reply_to', false);
         $this->config['cci'] = \Arr::get($sections, 'settings.cci', null);
         $layoutSlug = \Arr::get($sections, 'settings.layout', 'base');
+        trace_log($sections);
+        trace_log($layoutSlug);
         $this->layout = Layout::where('slug', $layoutSlug)->first();
         if (!$this->layout) {
             throw new \ApplicationException('Le layout du template n existe pas');
@@ -176,7 +178,6 @@ class MailMjml extends Model
         if ($env == 'local' || $env == 'dev') {
             $mjmlLayout = $this->layout->template;
             $finalMjml = \Winter\Storm\Parse\Bracket::parse($mjmlLayout, ['MjmlContents' => $mjml]);
-            //trace_log($finalMjml);
            $this->html = $this->sendApi($finalMjml);
         } else {
             $this->html =   \Cache::rememberForever('mjml_to_htm.' . $this->slug, function () use ($mjml) {

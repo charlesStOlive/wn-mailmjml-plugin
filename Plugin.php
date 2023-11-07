@@ -40,6 +40,8 @@ class Plugin extends PluginBase
             return new \Waka\MailMjml\Classes\Mjmler();
         });
 
+        $this->registerConsoleCommand('waka:syncmailmjml', 'Waka\MailMjml\Console\SyncMailMjml');
+
     }
 
     /**
@@ -69,21 +71,6 @@ class Plugin extends PluginBase
 
 
     /**
-     * Register model to clean.
-     *
-     * @return void
-     */
-    public function registerModelToClean()
-    {
-        $nbdays = \Config::get('wcli.wconfig::anonymize.sendBox', 7);
-        return [
-            'cleanSoftDelete' => [
-                \Waka\MailMjml\Models\WakaMail::class => 0,
-            ],
-        ];
-    }
-
-    /**
      * Registers any backend permissions used by this plugin.
      */
     public function registerPermissions(): array
@@ -107,9 +94,9 @@ class Plugin extends PluginBase
     {
         return [
            'mailMjmls' => [
-                'label' => Lang::get('waka.mailmjml::lang.menu.wakamails'),
-                'description' => Lang::get('waka.mailmjml::lang.menu.wakamails_description'),
-                'category' => Lang::get('waka.wutils::lang.menu.settings_category_model'),
+                'label' => Lang::get('waka.mailmjml::lang.menu.mailMjmls.label'),
+                'description' => Lang::get('waka.mailmjml::lang.menu.mailMjmls.description'),
+                'category' => Lang::get('waka.wutils::lang.menu.model_category'),
                 'icon' => 'icon-envelope',
                 'url' => Backend::url('waka/mailmjml/mailmjmls'),
                 'permissions' => ['waka.mailmjml.user.admin'],

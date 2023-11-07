@@ -18,7 +18,7 @@ class Mjmler extends BaseProductor
         'description' => 'waka.mailmjml::lang.driver.description',
         'productorModel' => \Waka\MailMjml\Models\MailMjml::class,
         'productorCreator' => \Waka\MailMjml\Classes\MjmlCreator::class,
-        'productorFilesRegistration' =>  'registerMjmlTemplates',
+        // 'productorFilesRegistration' =>  'registerMjmlTemplates',
         'productor_yaml_config' => '~/plugins/waka/mailmjml/models/mailmjml/productor_config.yaml',
         'methods' => [
             'sendEmail' => [

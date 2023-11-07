@@ -5,3 +5,6 @@
 1.0.1:
     - 'Update mailmjmls Table'
     - v1.0.1/update_mailmjmls_table.php
+1.0.2:
+    - 'Ajout de la notion sync'
+    - v1.0.2/update_mailmjmls_table.php
