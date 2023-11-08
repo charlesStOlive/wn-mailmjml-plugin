@@ -146,7 +146,7 @@ secondaryTabs:
         layout: 
             label: waka.mailmjml::lang.models.mailmjml.layout
             type: relation 
-            slect: name
+            select: name
     # infos:
     #     span: full
     #     type: modelinfo

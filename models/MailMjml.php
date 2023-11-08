@@ -8,6 +8,7 @@ use GuzzleHttp\Exception\ClientException;
 use Waka\MailMjml\Classes\ModelFileParser;
 use File as FileHelper;
 use View;
+use Arr;
 
 /**
  * MailMjml Model
@@ -156,20 +157,18 @@ class MailMjml extends Model
      */
     protected function fillFromSections($sections)
     {
-        $mjml = \Arr::get($sections, 'mjml');
-        $this->subject = \Arr::get($sections, 'settings.subject', 'sujet manquant');
-        $prod_asks = \Arr::get($sections, 'settings.prod_asks', '');
+        $mjml = Arr::get($sections, 'mjml');
+        $this->subject = Arr::get($sections, 'settings.subject', 'sujet manquant');
+        $prod_asks = Arr::get($sections, 'settings.prod_asks', '');
         //trace_log($prod_asks);
         $this->prod_asks = json_decode($prod_asks, true);
         //trace_log($this->prod_asks);
-        $this->config['open_log'] = \Arr::get($sections, 'settings.open_log', false);
-        $this->config['click_log'] = \Arr::get($sections, 'settings.click_log', false);
-        $this->config['sender'] = \Arr::get($sections, 'settings.sender', null);
-        $this->config['reply_to'] = \Arr::get($sections, 'settings.reply_to', false);
-        $this->config['cci'] = \Arr::get($sections, 'settings.cci', null);
-        $layoutSlug = \Arr::get($sections, 'settings.layout', 'base');
-        trace_log($sections);
-        trace_log($layoutSlug);
+        $this->config['open_log'] = Arr::get($sections, 'settings.open_log', false);
+        $this->config['click_log'] = Arr::get($sections, 'settings.click_log', false);
+        $this->config['sender'] = Arr::get($sections, 'settings.sender', null);
+        $this->config['reply_to'] = Arr::get($sections, 'settings.reply_to', false);
+        $this->config['cci'] = Arr::get($sections, 'settings.cci', null);
+        $layoutSlug = Arr::get($sections, 'settings.layout', 'base');
         $this->layout = Layout::where('slug', $layoutSlug)->first();
         if (!$this->layout) {
             throw new \ApplicationException('Le layout du template n existe pas');
