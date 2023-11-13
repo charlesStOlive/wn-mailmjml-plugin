@@ -9,7 +9,7 @@ backendUrl: waka/mailmjml/layouts
 workflow: false 
 
 controllerConfig:
-    breadcrump:
+    breadcrumb:
         inSettings: true 
         title: waka.mailmjml::lang.models.layout.label
         rows:    
