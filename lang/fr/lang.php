@@ -18,15 +18,25 @@ return [
         'mjmler' => [
             'label' => 'Mail MJML',
             'success' => [
-                'message_send' => 'Mail envoyé avec succès',
                 'btn_message_send_label' => 'Voir l\'email dans la boîte d\'envoi',
+                'message_send' => 'Mail envoyé avec succès',
             ],
+        ],
+    ],
+    'jobs' => [
+        'mailmjml' => [
+            'ids_error' => 'ID des mails avec erreurs',
+            'result' => 'Resultats',
+            'scoped' => 'Scoped',
+            'send' => 'Mails envoyés',
+            'send_emails' => 'Envoyer des mails MJML',
+            'skipped' => 'Mails abandonnées',
         ],
     ],
     'menu' => [
         'mailMjmls' => [
-            'label' => 'Mails MJML',
             'description' => 'Des Emails au format MJML',
+            'label' => 'Mails MJML',
         ],
     ],
     'models' => [
@@ -36,10 +46,12 @@ return [
             'slug' => 'Slug',
             'template' => 'Template',
         ],
+        'mail_logs' => 'Logs mails',
         'mailmjml' => [
             'cci' => 'CCI',
             'cci_com' => 'Autoriser CCI',
             'click_log' => 'Log de clic',
+            'code' => 'Code/Slug',
             'has_cciss' => 'CCI',
             'has_log' => 'Enregistrer les logs ?',
             'has_log_com' => 'Permet de faire des statistiques sur les emails envoyés',
@@ -62,18 +74,16 @@ return [
             'slug' => 'Code ou Slug',
             'slug_com' => 'Seul un super-admin peut mettre à jour. Attention, le code est exploité par les contrôleurs !',
             'subject' => 'Sujet',
+            'sync' => 'Static',
             'tab_contents' => 'Contenus additionnels',
             'tab_edit' => 'Édition',
             'tab_info' => 'Information',
             'tab_options' => 'Options',
-            'code' => 'Code/Slug',
-            'sync' => 'Static',
         ],
-        'tab_edit' => 'Édition',
-        'mail_logs' => 'Logs mails',
-        'tab_logs' => 'Logs',
-        'subject' => 'Sujet',
         'mjml' => 'MJML',
+        'subject' => 'Sujet',
+        'tab_edit' => 'Édition',
+        'tab_logs' => 'Logs',
     ],
     'permissions' => [
         'user_base' => 'Administrateur MJML',
@@ -81,16 +91,5 @@ return [
     'plugin' => [
         'description' => 'Plugin permettant d\'envoyer des emails en exploitant le MJML. Il nécessite Waka.Productor pour fonctionner',
         'name' => 'Waka - MJML',
-    ],
-    'jobs' => [
-        'mailmjml' => [
-            'send_emails' => 'Envoyer des mails MJML',
-            'error_scope' => 'Mail avec erreur sur le scope',
-            'send' => 'Mails envoyés',
-            'skipped' => 'Mails abandonnées',
-            'title' => 'Mails à envoyer',
-            'ids_error' => 'ID des mails avec erreurs',
-            'result' => "Resultats",
-        ],
     ],
 ];
