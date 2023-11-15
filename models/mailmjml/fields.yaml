@@ -7,7 +7,7 @@ fields:
         label: waka.mailmjml::lang.models.mailmjml.subject
         span: left
         required: true
-        permissions: [waka.mailer.*]
+        permissions: [waka.maillog.*]
 tabs:
     defaultTab: waka.mailmjml::lang.models.tab_edit
     icons: 
@@ -20,7 +20,7 @@ tabs:
             type: codeeditor
             language: xml
             size: giant
-            permissions: [waka.mailer.admin.super]
+            permissions: [waka.maillog.admin.super]
             tab: waka.mailmjml::lang.models.mailmjml.tab_edit
         prod_asks: 
             label: Mettre en place des données éditables lors de la géneration du modèle 
@@ -39,7 +39,7 @@ tabs:
         #         targetProductor: mailMjml
         #         ruleMode: bloc
         #         comment: waka.mailmjml::lang.models.mailmjml.rule_blocs_com
-        #         permissions: [waka.mailer.admin.super]
+        #         permissions: [waka.maillog.admin.super]
         #         tab: waka.mailmjml::lang.models.mailmjml.tab_contents
         config:
             type: nestedform
@@ -131,7 +131,7 @@ tabs:
         #     span: full
         #     type: partial
         #     path: field_mail_logs
-        #     permissions: [waka.mailer.admin.*]
+        #     permissions: [waka.maillog.admin.*]
         #     tab: waka.mailmjml::lang.models.tab_logs
 secondaryTabs:
     fields:

@@ -7,7 +7,7 @@ fields:
         label: waka.mailmjml::lang.models.subject
         span: left
         required: true
-        permissions: [waka.mailer.*]
+        permissions: [waka.maillog.*]
     slug:
         label:  waka.mailmjml::lang.models.mailmjml.code
         span: right
@@ -17,7 +17,7 @@ fields:
         type: codeeditor
         language: xml
         size: giant
-        permissions: [waka.mailer.admin.super]
+        permissions: [waka.maillog.admin.super]
         tab: waka.mailmjml::lang.models.tab_edit
     config:
         type: nestedform
