@@ -24,6 +24,8 @@ class MailMjmls extends Controller
         SettingsManager::setContext('Waka.MailMjml', 'mailMjmls');
     }
 
+    public $requiredPermissions = ['waka.mailmjml.admin.base'];
+
     public function listInjectRowClass($record, $definition)
     {
         // Strike through past lessons

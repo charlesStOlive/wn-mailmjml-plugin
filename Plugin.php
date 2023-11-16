@@ -15,8 +15,10 @@ class Plugin extends PluginBase
      * @var array Plugin dependencies
      */
     public $require = [
-        'Waka.productor',
+        'Waka.Wutils',
+        'Waka.Productor'
     ];
+    
     /**
      * Returns information about this plugin.
      */
@@ -44,21 +46,7 @@ class Plugin extends PluginBase
 
     }
 
-    /**
-     * Boot method, called right before the request route.
-     */
-    public function boot(): void
-    {
-
-    }
-
-    /**
-     * Registers any frontend components implemented in this plugin.
-     */
-    public function registerComponents(): array
-    {
-        return []; // Remove this line to activate
-    }
+    
 
     public function registerWakaRules()
     {
@@ -76,13 +64,13 @@ class Plugin extends PluginBase
     public function registerPermissions(): array
     {
         return [
-            'waka.mailmjml.user.base' => [
+            'waka.mailmjml.admin.base' => [
                 'tab' => 'waka.mailmjml::lang.plugin.name',
-                'label' => 'waka.mailmjml::lang.permissions.user_base',
+                'label' => 'Administrateur MJML',
             ],
-            'waka.mailmjml.user.admin' => [
+            'waka.mailmjml.admin.super' => [
                 'tab' => 'waka.mailmjml::lang.plugin.name',
-                'label' => 'waka.mailmjml::lang.permissions.user_base',
+                'label' => 'Super asministrateur MJML',
             ],
         ];
     }
@@ -99,7 +87,7 @@ class Plugin extends PluginBase
                 'category' => Lang::get('waka.wutils::lang.menu.model_category'),
                 'icon' => 'icon-envelope',
                 'url' => Backend::url('waka/mailmjml/mailmjmls'),
-                'permissions' => ['waka.mailmjml.user.admin'],
+                'permissions' => ['waka.mailmjml.admin.*'],
                 'order' => 30,
             ],
         ];

@@ -21,13 +21,13 @@ controllerConfig:
         base:
             create: 
                 show: true
-                permissions: [waka.mailmjml.*]
+                permissions: [waka.mailmjml.admin.super]
             reorder: 
                 show: false  
                 permissions: []
             delete: 
                 show: true
-                permissions: [waka.mailmjml.*]
+                permissions: [waka.mailmjml.admin.super]
         partials:
             index_btn:
                 url: $/waka/mailmjml/controllers/mailmjmls/_index_btn.php
