@@ -85,9 +85,6 @@ return [
         'tab_edit' => 'Editing',
         'tab_logs' => 'Logs',
     ],
-    'permissions' => [
-        'user_base' => 'MJML Administrator',
-    ],
     'plugin' => [
         'description' => 'Plugin allowing to send emails using MJML. It requires Waka.Productor to function',
         'name' => 'Waka - MJML',
