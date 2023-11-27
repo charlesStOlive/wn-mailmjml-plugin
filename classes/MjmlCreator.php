@@ -194,7 +194,9 @@ class MjmlCreator
         // $this->pjs = $this->preparePjs();
         //
         //trace_log('ok-----------------------------------------');
+        //trace_log('this->vars',$this->vars);
         $this->html = $this->parseModelField($this->mail->html);
+        
     }
 
 
