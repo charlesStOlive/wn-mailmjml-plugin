@@ -97,7 +97,7 @@ fields:
                     permissions: [waka.mailmjml.admin.super]
                     tab: waka.mailmjml::lang.models.mailmjml.tab_options
                 has_cci: 
-                    label: waka.mailmjml::lang.models.mailmjml.has_cciss
+                    label: waka.mailmjml::lang.models.mailmjml.has_cci
                     span: left
                     type: switch
                     default: false

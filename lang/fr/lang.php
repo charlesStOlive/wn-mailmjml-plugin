@@ -52,7 +52,7 @@ return [
             'cci_com' => 'Autoriser CCI',
             'click_log' => 'Log de clic',
             'code' => 'Code/Slug',
-            'has_cciss' => 'CCI',
+            'has_cci' => 'CCI',
             'has_log' => 'Enregistrer les logs ?',
             'has_log_com' => 'Permet de faire des statistiques sur les emails envoyés',
             'has_reply_to' => 'Personnaliser l\'adresse de réponse',

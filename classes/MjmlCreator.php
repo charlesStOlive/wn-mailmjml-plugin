@@ -17,7 +17,7 @@ class MjmlCreator
     private $reply_to;
     private $tos;
     private $ccs;
-    private $ccis;
+    private $cci;
     private $pjs;
     private $headers;
     private $sourceClass;
@@ -115,9 +115,9 @@ class MjmlCreator
     {
         $this->ccs = $ccs;
     }
-    public function setCcis($ccis)
+    public function setCci($cci)
     {
-        $this->ccis = $ccis;
+        $this->cci = $cci;
     }
     public function setHeaders(array $headers)
     {
@@ -131,6 +131,8 @@ class MjmlCreator
         if (!$this->tos) {
             throw new \ApplicationException('tos non definis dans le code ou le template');
         }
+        //trace_log('headers!!!',$this->headers);
+
         
         $mailSendBox = \Waka\MailLog\Models\SendBox::create([
             'name' => $this->subject,
@@ -141,8 +143,9 @@ class MjmlCreator
             'targeteable_id' => $this->headers['ds_id'] ?? null,
             'mail_vars' => $this->headers,
             'mail_tags' => [],
+            'sender' => $this->sender,
             'tos' => $this->tos,
-            'cci' => $this->ccis,
+            'cci' => $this->cci,
             'ccs' => $this->ccs,
             'reply_to' => $this->reply_to,
             'open_log' => $this->open_log,
@@ -184,7 +187,7 @@ class MjmlCreator
         $this->subject =  $this->parseModelField($this->subject ?? null, $this->mail->subject);
         $this->tos = $this->parseModelField($this->tos ?? null,  $this->mail->config['tos'] ?? null);
         $this->ccs =  $this->parseModelField($this->ccs ?? null, $this->mail->config['ccs'] ?? null);
-        $this->ccis =  $this->parseModelField($this->ccis ?? null,  $this->mail->config['ccis'] ?? null);
+        $this->cci =  $this->parseModelField($this->cci ?? null,  $this->mail->config['cci'] ?? null);
         $this->sender =  $this->parseModelField($this->sender ?? null, $this->mail->config['sender'] ?? null);
         $this->reply_to =  $this->parseModelField($this->reply_to ?? null,  $this->mail->config['reply_to'] ?? null);
         $this->open_log = $this->mail->config['open_log'] ?? null;

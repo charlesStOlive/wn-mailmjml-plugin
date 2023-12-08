@@ -52,7 +52,7 @@ return [
             'cci_com' => 'Allow BCC',
             'click_log' => 'Click log',
             'code' => 'Code/Slug',
-            'has_cciss' => 'BCC',
+            'has_cci' => 'BCC',
             'has_log' => 'Record logs?',
             'has_log_com' => 'Allows for statistics on sent emails',
             'has_reply_to' => 'Customize reply-to address',

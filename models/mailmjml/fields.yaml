@@ -49,7 +49,7 @@ tabs:
                 fields: 
                     is_embed:
                         label: waka.mailmjml::lang.models.mailmjml.is_embed
-                        span: right
+                        span: left
                         type: switch
                         default: false
                         comment: waka.mailmjml::lang.models.mailmjml.is_embed_com
@@ -112,7 +112,7 @@ tabs:
                             condition: checked
                         permissions: [waka.mailmjml.admin.super]
                     has_cci: 
-                        label: waka.mailmjml::lang.models.mailmjml.has_cciss
+                        label: waka.mailmjml::lang.models.mailmjml.has_cci
                         span: left
                         type: switch
                         default: false

@@ -40,7 +40,7 @@ Dans le callBack il est possible d'ajouter ces valeurs :
             $mail->setSender('hello word'); // mettre un envoyeur @var string
             $mail->setReplyTo('hello word'); // mettre le replyTo @var string
             $mail->setCcs('hello word'); // mettre  des cibles pour la copie CC @var array
-            $mail->setCcis('hello word'); // choisir un sujet @var string
+            $mail->setCci('hello word'); // choisir un sujet @var string
             $mail->setHeaders('hello word'); // choisir des headers @var array ['ds' => pour la classe de la target, 'ds_id' pour l'id de la classe]
         });
 ```

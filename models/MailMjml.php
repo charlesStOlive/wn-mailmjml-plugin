@@ -100,8 +100,6 @@ class MailMjml extends Model
     public $attachOne = [];
     public $attachMany = [];
 
-    public $config;
-
 
     public function beforeSave()
     {
@@ -163,11 +161,13 @@ class MailMjml extends Model
         //trace_log($prod_asks);
         $this->prod_asks = json_decode($prod_asks, true);
         //trace_log($this->prod_asks);
-        $this->config['open_log'] = Arr::get($sections, 'settings.open_log', false);
-        $this->config['click_log'] = Arr::get($sections, 'settings.click_log', false);
-        $this->config['sender'] = Arr::get($sections, 'settings.sender', null);
-        $this->config['reply_to'] = Arr::get($sections, 'settings.reply_to', false);
-        $this->config['cci'] = Arr::get($sections, 'settings.cci', null);
+        $config = [];
+        $config['open_log'] = Arr::get($sections, 'settings.open_log', false);
+        $config['click_log'] = Arr::get($sections, 'settings.click_log', false);
+        $config['sender'] = Arr::get($sections, 'settings.sender', null);
+        $config['reply_to'] = Arr::get($sections, 'settings.reply_to', false);
+        $config['cci'] = Arr::get($sections, 'settings.cci', null);
+        $this->setAttribute('config', $config);
         $layoutSlug = Arr::get($sections, 'settings.layout', 'base');
         $this->layout = Layout::where('slug', $layoutSlug)->first();
         if (!$this->layout) {
