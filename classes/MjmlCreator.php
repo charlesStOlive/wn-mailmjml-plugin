@@ -168,7 +168,8 @@ class MjmlCreator
             foreach($pjs as $pj) {
                 $filePath = $pj['path'] ?? null;
                 if(!$filePath) {
-                    \Log::error('Il manque le path de la PJ');
+                    \Log::error('Attention pour créer une PJ il faut pousser un objet [label , path]');
+                    break;
                 }
                 $fileName = $pj['label'] ?? 'inc';
                 $fileExtention = pathinfo($filePath)['extension'];
