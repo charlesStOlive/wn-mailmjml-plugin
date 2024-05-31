@@ -7,3 +7,8 @@ fields:
 
     subject:
         label: Sujet
+
+    embedImage:
+        label: Embarquer les images
+        type: checkbox 
+        comment: Disponible uniquement pour outlook
