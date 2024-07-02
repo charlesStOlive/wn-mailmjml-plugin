@@ -207,7 +207,7 @@ class MailMjml extends Model
     {
         $applicationId = env('MJML_API_ID');
         $secretKey = env('MJML_API_SECRET');
-        $client = new Client(['base_uri' => 'https://api.mjml.io/v1/']);
+        $client = new Client(['base_uri' => 'https://api.mjml.io/v1/','verify' => false]);
         $response = $client->request('POST', 'render', [
             'auth' => [$applicationId, $secretKey],
             'body' => json_encode(['mjml' => $mjml]),
