@@ -10,5 +10,9 @@ fields:
 
     embedImage:
         label: Embarquer les images
-        type: checkbox 
-        comment: Disponible uniquement pour outlook
+        type: dropdown
+        options: 
+            inherit: Hériter
+            true: Oui
+            false: Non
+        comment: Pouur email API ou outlook ( uniquement en mode brouillon)

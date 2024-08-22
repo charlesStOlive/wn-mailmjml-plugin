@@ -81,36 +81,34 @@ tabs:
                             condition: checked
                         default: false
                         permissions: [waka.mailmjml.admin.super]
-                    has_sender:
-                        label: waka.mailmjml::lang.models.mailmjml.has_sender
-                        span: left
-                        type: switch
-                        default: false
-                        comment: waka.mailmjml::lang.models.mailmjml.has_sender_com
-                        permissions: [waka.mailmjml.admin.super]
+                    # has_sender:
+                    #     label: waka.mailmjml::lang.models.mailmjml.has_sender
+                    #     span: left
+                    #     type: switch
+                    #     default: false
+                    #     comment: waka.mailmjml::lang.models.mailmjml.has_sender_com
+                    #     permissions: [waka.mailmjml.admin.super]
                     sender:
                         label: waka.mailmjml::lang.models.mailmjml.sender
-                        span: right
-                        trigger:
-                            action: show
-                            field: has_sender
-                            condition: checked
-                        permissions: [waka.mailmjml.admin.super]
-                    has_reply_to:
-                        label: waka.mailmjml::lang.models.mailmjml.has_reply_to
                         span: left
-                        type: switch
-                        default: false
-                        comment: waka.mailmjml::lang.models.mailmjml.has_reply_to_com
                         permissions: [waka.mailmjml.admin.super]
+                        commentAbove: waka.mailmjml::lang.models.mailmjml.sender_com
+                    # has_reply_to:
+                    #     label: waka.mailmjml::lang.models.mailmjml.has_reply_to
+                    #     span: left
+                    #     type: switch
+                    #     default: false
+                    #     comment: waka.mailmjml::lang.models.mailmjml.has_reply_to_com
+                    #     permissions: [waka.mailmjml.admin.super]
                     reply_to:
                         label: waka.mailmjml::lang.models.mailmjml.reply_to
-                        span: right
-                        trigger:
-                            action: show
-                            field: has_reply_to
-                            condition: checked
+                        span: left
+                        # trigger:
+                        #     action: show
+                        #     field: has_reply_to
+                        #     condition: checked
                         permissions: [waka.mailmjml.admin.super]
+                        commentAbove: waka.mailmjml::lang.models.mailmjml.reply_to_com
                     has_cci: 
                         label: waka.mailmjml::lang.models.mailmjml.has_cci
                         span: left

@@ -79,6 +79,8 @@ return [
             'tab_edit' => 'Édition',
             'tab_info' => 'Information',
             'tab_options' => 'Options',
+            'sender_com' => 'Séparer adresse et name par une virgule ou uniquement adresse ou vide si par defaut',
+            'reply_to_com' => 'Si vide, adresse de l\'expediteur',
         ],
         'mjml' => 'MJML',
         'subject' => 'Sujet',

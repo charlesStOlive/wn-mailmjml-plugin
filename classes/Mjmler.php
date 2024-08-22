@@ -51,6 +51,7 @@ class Mjmler extends BaseProductor
         $mailId = self::sendEmail($templateCode, $this->data, function ($mail) use ($allDatas, $dsId, $dsClass, $addDsPjs) {
             $mail->setSubject(\Arr::get($allDatas, 'productorDataArray.subject'));
             $mail->setTos(\Arr::get($allDatas, 'productorDataArray.tos'));
+            $mail->setEmbed(\Arr::get($allDatas, 'productorDataArray.embedImage'));
             if ($dsId && $dsClass) {
                 $mail->setHeaders([
                     'ds' => $dsClass,
@@ -66,7 +67,7 @@ class Mjmler extends BaseProductor
             'btn' => [
                 'label' => 'waka.mailmjml::lang.driver.mjmler.success.btn_message_send_label',
                 'request' => 'onGoToBo',
-                'link' => 'waka/maillog/sendboxs/update/' . $mailId
+                'link' => 'waka/maillog/sendboxs/preview/' . $mailId
             ],
         ];
     }

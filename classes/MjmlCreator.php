@@ -24,8 +24,10 @@ class MjmlCreator
     private $sourceId;
     private $open_log;
     private $click_log;
-    private $is_embed;
+
     private $sendBoxId;
+    //
+    public $is_embed;
 
     /**
      * Sauvegarde le PDF généré à partir d'un template HTML vers un chemin spécifié.
@@ -41,6 +43,7 @@ class MjmlCreator
         $this->mail = MailMjml::findBySlug($template);
         $this->sendMode = $options['send_mode'] ?? 'mailgun';
         $this->vars = $vars;
+        $this->is_embed = null;
         $this->pjsDatas = [];
     }
 
@@ -70,24 +73,20 @@ class MjmlCreator
     }
     public function addDsPjs($objects = [])
     {
-        foreach($objects as $dsKey) {
+        foreach ($objects as $dsKey) {
             $objectFromDs = $this->vars['ds'][$dsKey] ?? null;
-            if($objectFromDs) {
-                array_push($this->pjsDatas,$objectFromDs);
+            if ($objectFromDs) {
+                array_push($this->pjsDatas, $objectFromDs);
             } else {
                 //trace_log($this->vars['ds']);
-                \Log::error('***addDsPjs**** : Impossible de créer la PJ depuis DS : '.$dsKey);
+                \Log::error('***addDsPjs**** : Impossible de créer la PJ depuis DS : ' . $dsKey);
             }
-            
-        }   
-        
-
+        }
     }
 
     public function addPjs($objects = [])
     {
-        $this->pjsDatas = array_merge($this->pjsDatas,$objects);
-
+        $this->pjsDatas = array_merge($this->pjsDatas, $objects);
     }
 
 
@@ -123,6 +122,16 @@ class MjmlCreator
     {
         $this->headers = $headers;
     }
+    public function setEmbed($embedinstruction)
+    {
+        if ($embedinstruction === 'false') {
+            $this->is_embed = false;
+        } elseif ($embedinstruction === 'true') {
+            $this->is_embed = true;
+        } elseif ($embedinstruction === 'inherit') {
+            $this->is_embed = $this->mail->config['is_embed'] ?? false;
+        }
+    }
     /**
      * FONCTIONS PRIVATE
      */
@@ -133,7 +142,6 @@ class MjmlCreator
         }
         //trace_log('headers!!!',$this->headers);
 
-        
         $mailSendBox = \Waka\MailLog\Models\SendBox::create([
             'name' => $this->subject,
             'content' => $this->html,
@@ -153,21 +161,22 @@ class MjmlCreator
             'is_embed' => $this->is_embed,
         ]);
 
-        $this->createPjsInSendBoxs( $this->pjsDatas, $mailSendBox);
+        $this->createPjsInSendBoxs($this->pjsDatas, $mailSendBox);
         try {
             $mailSendBox->send();
-        } catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             throw $ex;
         }
         return $mailSendBox->id;
     }
 
-    private function createPjsInSendBoxs($pjs, $mailSendBox) {
-        if($pjs) {
+    private function createPjsInSendBoxs($pjs, $mailSendBox)
+    {
+        if ($pjs) {
             //trace_log($pjs);
-            foreach($pjs as $pj) {
+            foreach ($pjs as $pj) {
                 $filePath = $pj['path'] ?? null;
-                if(!$filePath) {
+                if (!$filePath) {
                     \Log::error('Attention pour créer une PJ il faut pousser un objet [label , path]');
                     break;
                 }
@@ -175,12 +184,11 @@ class MjmlCreator
                 $fileExtention = pathinfo($filePath)['extension'];
                 $file = new \System\Models\File;
                 $file->data = $filePath;
-                $file->title = $fileName.'.'.$fileExtention;
+                $file->title = $fileName . '.' . $fileExtention;
                 $file->is_public = false;
                 $mailSendBox->pjs()->add($file);
-
             }
-        } 
+        }
     }
 
     private function prepareModelData()
@@ -193,14 +201,16 @@ class MjmlCreator
         $this->reply_to =  $this->parseModelField($this->reply_to ?? null,  $this->mail->config['reply_to'] ?? null);
         $this->open_log = $this->mail->config['open_log'] ?? null;
         $this->click_log = $this->mail->config['click_log'] ?? null;
-        $this->is_embed = $this->mail->config['is_embed'] ?? null;
+        if ($this->is_embed === null) {
+            $this->is_embed = $this->mail->config['is_embed'] ?? false;
+        }
+
         $this->headers = $this->mergeHeaders();
         // $this->pjs = $this->preparePjs();
         //
         //trace_log('ok-----------------------------------------');
         //trace_log('this->vars',$this->vars);
         $this->html = $this->parseModelField($this->mail->html);
-        
     }
 
 
@@ -210,12 +220,11 @@ class MjmlCreator
             'maileable_type' => $this->getMorhClassName($this->mail),
             'maileable_id' => $this->mail->id ?? 9999
         ];
-        if($this->headers) {
+        if ($this->headers) {
             return array_merge($baseHeaders, $this->headers);
         } else {
             return $baseHeaders;
         }
-        
     }
     /**
      * Permet de retrouver le Morhp name de la classe si il esxite
@@ -229,14 +238,14 @@ class MjmlCreator
     private function parseModelField($baseValue, $modelValue = null)
     {
         $valueToReturn = null;
-        if($baseValue) {
+        if ($baseValue) {
             $valueToReturn = $baseValue;
         } else {
             $valueToReturn = $modelValue;
         }
         if ($valueToReturn && is_string($valueToReturn)) {
             return \Twig::parse($valueToReturn, $this->vars);
-        } else if($valueToReturn) {
+        } else if ($valueToReturn) {
             return $valueToReturn;
         } else {
             return null;
