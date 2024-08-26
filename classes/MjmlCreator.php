@@ -243,6 +243,8 @@ class MjmlCreator
         } else {
             $valueToReturn = $modelValue;
         }
+        //trace_log('valueToReturn',$valueToReturn);
+
         if ($valueToReturn && is_string($valueToReturn)) {
             return \Twig::parse($valueToReturn, $this->vars);
         } else if ($valueToReturn) {
